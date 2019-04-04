@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Add Record Form</title>
+<style>
+body {
+  background-color: #40E0D0;
+  font-family: Verdana, sans-serif;
+}
+
+h1 {
+  color: white;
+} 
+</style>
+</head>
+<body>
+<center>
+  <!-- Data form displayed on page -->
+<h1>Coder's Cafe</h1>
+<form method="post">
+    <p>
+        <label for="drink">Drink:</label>
+        <input type="text" name="drink" id="drink">
+    </p>
+    <p>
+        <label for="size">Size:</label>
+        <input type="text" name="size" id="size">
+    </p>
+    <p>
+        <label for="price">Price:</label>
+        <input type="text" name="price" id="price">
+    </p>
+    <input type="submit" value="Submit" onclick="addtoDB()">
+</form>
+<p id=”submitted></p>
+<p><a href="sales.php">View Sales</a></p>
+</center>
+<!-- Begin script that submits the data -->
+<script>
+function addtoDB() {
+  var xhttp; 
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+        document.getElementById("submitted").innerHTML = "form submitted";
+    }
+  };
+  var drink = document.getElementById('drink').value;
+   var size = document.getElementById('size').value;
+   var price = document.getElementById('price').value;
+   var queryString = "?drink=" + drink +  "&size=" + size + "&price=" + price;
+   console.log(queryString);
+   xhttp.open("GET", "insert.php" + queryString, true);
+   xhttp.send(null); 
+
+}
+</script>
